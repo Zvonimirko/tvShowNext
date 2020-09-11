@@ -1,5 +1,7 @@
 import React from "react";
 
+import thumbnailStyles from "./thumbnail.styles";
+
 function Thumbnail({ imageUrl, caption }) {
   console.log(imageUrl);
   return (
@@ -8,17 +10,7 @@ function Thumbnail({ imageUrl, caption }) {
         <img src={imageUrl} className="thumbnail__image" />
         <h4 className="thumbnail__caption">{caption}</h4>
 
-        <style jsx>{`
-          .thumbnail__image {
-            width: 100%;
-            height: 500px;
-            object-fit: contain;
-          }
-
-          .thumbnail__caption {
-            text-align: center;
-          }
-        `}</style>
+        <style jsx>{thumbnailStyles}</style>
       </div>
     </div>
   );

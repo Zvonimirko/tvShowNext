@@ -10,6 +10,11 @@ function Home({ shows }) {
       return (
         <li key={index}>
           <Thumbnail imageUrl={show.image.medium} caption={show.name} />
+          <style jsx>{`
+            li {
+              list-style: none;
+            }
+          `}</style>
         </li>
       );
     });
@@ -19,8 +24,7 @@ function Home({ shows }) {
 }
 
 Home.getInitialProps = async (context) => {
-  // const country = context.query.country || "us";
-  const country = context ? context.query.country : "us";
+  const country = context.query.country || "us";
   console.log("tcl:", context);
   const response = await axios.get(
     `http://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`
