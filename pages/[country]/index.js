@@ -1,14 +1,29 @@
-import React, { useEffect } from "react";
 import axios from "axios";
+import Thumbnail from "../../components/Thumbnail/Thumbnail";
 
-function Home(props) {
-  console.log(props);
-  return <div>This is a country test</div>;
+function Home({ shows }) {
+  console.log(shows);
+  const renderShows = () => {
+    return shows.map((showItem, index) => {
+      const { show } = showItem;
+      // id u showItemu je pongdje dupliciran
+      return (
+        <li key={index}>
+          <Thumbnail imageUrl={show.image.medium} caption={show.name} />
+        </li>
+      );
+    });
+  };
+
+  return <ul className="tvshows">{renderShows()}</ul>;
 }
 
-getStaticProps = async () => {
+Home.getInitialProps = async (context) => {
+  // const country = context.query.country || "us";
+  const country = context ? context.query.country : "us";
+  console.log("tcl:", context);
   const response = await axios.get(
-    "http://api.tvmaze.com/schedule?country=US&date=2014-12-01"
+    `http://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`
   );
 
   return {
