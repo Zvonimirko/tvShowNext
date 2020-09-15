@@ -7,7 +7,6 @@ export default function Home() {
 Home.getInitialProps = (context) => {
   const country = context.query.countrs || "us";
 
-  console.log("browser:", process.browser);
   process.browser
     ? Router.replace("/[country]", `${country}`)
     : context.res.writeHead(302, { Location: `/${country}` });

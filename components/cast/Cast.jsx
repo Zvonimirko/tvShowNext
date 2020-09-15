@@ -1,7 +1,4 @@
-import Thumbnail from "../thumbnail/Thumbnail";
-
 function Cast({ cast }) {
-  console.log(cast);
   const renderCast = () => {
     return cast.map((item, index) => {
       const { image, name } = item.person;
