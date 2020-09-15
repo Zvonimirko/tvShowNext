@@ -16,7 +16,6 @@ function ShowDetails({ show, country }) {
 
   return (
     <div className="show-details">
-      <Header />
       <div className="show-details__poster" style={style}></div>
       <h1>{name}</h1>
       {summary ? parse(summary) : ""}

@@ -27,7 +27,6 @@ function Home({ shows, country }) {
 
   return (
     <div className="Home">
-      <Header />
       <ul className="tvshows">
         {renderShows()}
         <style jsx>
