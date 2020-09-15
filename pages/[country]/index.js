@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import Thumbnail from "../../components/thumbnail/Thumbnail";
+import Thumbnail from "../../components/Thumbnail/Thumbnail";
 import CustomError from "../_error";
 
 function Home({ shows, country, statusCode }) {
