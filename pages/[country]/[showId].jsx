@@ -71,7 +71,7 @@ ShowDetails.getInitialProps = async (context) => {
     const id = context.query.showId;
     const country = context.query.country;
     const response = await axios(
-      `http://api.tvmaze.com/shows/${id}?embed=cast`
+      `https://api.tvmaze.com/shows/${id}?embed=cast`
     );
 
     return { show: response.data, country };
