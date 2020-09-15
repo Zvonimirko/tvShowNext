@@ -1,9 +1,13 @@
 import axios from "axios";
 
 import Thumbnail from "../../components/thumbnail/Thumbnail";
-import Header from "../../components/header/Header";
+import CustomError from "../_error";
 
-function Home({ shows, country }) {
+function Home({ shows, country, statusCode }) {
+  if (statusCode) {
+    return <CustomError statusCode={statusCode} />;
+  }
+
   const renderShows = () => {
     return shows.map((showItem, index) => {
       const { show } = showItem;
@@ -33,10 +37,10 @@ function Home({ shows, country }) {
           {`
             ul {
               display: grid;
-              grid-template-columns: 1fr 1fr 1fr;
+              grid-template-columns: 1fr 1fr 1fr 1fr;
               padding: 0;
               list-style: none;
-              gap: 50px;
+              gap: 10px;
             }
           `}
         </style>
@@ -46,15 +50,21 @@ function Home({ shows, country }) {
 }
 
 Home.getInitialProps = async (context) => {
-  const country = context.query.country || "us";
-  const response = await axios.get(
-    `http://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`
-  );
+  try {
+    const country = context.query.country || "us";
+    const response = await axios.get(
+      `http://api.tvmaze.com/schedule?country=${country}&date=2014-12-01`
+    );
 
-  return {
-    shows: response.data,
-    country,
-  };
+    return {
+      shows: response.data,
+      country,
+    };
+  } catch (error) {
+    return {
+      statusCode: error.response ? error.response.status : 500,
+    };
+  }
 };
 
 export default Home;

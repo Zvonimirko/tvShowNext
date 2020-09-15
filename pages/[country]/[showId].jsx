@@ -2,13 +2,24 @@ import React from "react";
 import axios from "axios";
 import parse from "html-react-parser";
 import Link from "next/link";
+// import Error from "next/error";
 
 import Cast from "../../components/cast/Cast";
-import Header from "../../components/header/Header";
+import CustomError from "../_error";
 
-function ShowDetails({ show, country }) {
+function ShowDetails({ show = {}, country, statusCode }) {
   const { name, image, summary, _embedded } = show;
   // let parsedSummary = summary.replace(/<\/?[^>]+(>|$)/g, "");
+
+  if (statusCode) {
+    return (
+      <CustomError
+        statusCode={statusCode}
+        title="Ooops! There was a problem with address..."
+      />
+    );
+  }
+
   const style = {
     backgroundImage: `url(${image.original})`,
     marginTop: "10px",
@@ -28,9 +39,9 @@ function ShowDetails({ show, country }) {
 
       <style jsx>{`
         .show-details__poster {
-          height: 400px;
+          height: 600px;
           background-size: cover;
-          width: 40%;
+          width: 100%;
           background-position: center -100px;
           margin: 0 auto;
         }
@@ -56,11 +67,19 @@ function ShowDetails({ show, country }) {
 }
 
 ShowDetails.getInitialProps = async (context) => {
-  const id = context.query.showId;
-  const country = context.query.country;
-  const response = await axios(`http://api.tvmaze.com/shows/${id}?embed=cast`);
+  try {
+    const id = context.query.showId;
+    const country = context.query.country;
+    const response = await axios(
+      `http://api.tvmaze.com/shows/${id}?embed=cast`
+    );
 
-  return { show: response.data, country };
+    return { show: response.data, country };
+  } catch (error) {
+    return {
+      statusCode: error.response ? error.response.status : 500,
+    };
+  }
 };
 
 export default ShowDetails;
