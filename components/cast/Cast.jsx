@@ -1,4 +1,4 @@
-import Thumbnail from "../Thumbnail/Thumbnail";
+import Thumbnail from "../thumbnail/Thumbnail";
 
 function Cast({ cast }) {
   console.log(cast);

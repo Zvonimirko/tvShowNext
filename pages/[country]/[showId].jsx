@@ -4,20 +4,23 @@ import parse from "html-react-parser";
 import Link from "next/link";
 
 import Cast from "../../components/cast/Cast";
+import Header from "../../components/header/Header";
 
 function ShowDetails({ show, country }) {
   const { name, image, summary, _embedded } = show;
   // let parsedSummary = summary.replace(/<\/?[^>]+(>|$)/g, "");
   const style = {
     backgroundImage: `url(${image.original})`,
+    marginTop: "10px",
   };
 
   return (
     <div className="show-details">
+      <Header />
       <div className="show-details__poster" style={style}></div>
       <h1>{name}</h1>
-      {parse(summary)}
-      <Cast cast={show._embedded.cast} />
+      {summary ? parse(summary) : ""}
+      {_embedded.cast.length ? <Cast cast={_embedded.cast} /> : ""}
       <div className="back-button__container">
         <Link href="/[country]/" as={`/${country}/`}>
           <a className="back-button">Back</a>

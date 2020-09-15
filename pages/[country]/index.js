@@ -1,6 +1,7 @@
 import axios from "axios";
 
-import Thumbnail from "../../components/Thumbnail/Thumbnail";
+import Thumbnail from "../../components/thumbnail/Thumbnail";
+import Header from "../../components/header/Header";
 
 function Home({ shows, country }) {
   const renderShows = () => {
@@ -25,7 +26,8 @@ function Home({ shows, country }) {
   };
 
   return (
-    <div>
+    <div className="Home">
+      <Header />
       <ul className="tvshows">
         {renderShows()}
         <style jsx>
